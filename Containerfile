@@ -3,7 +3,7 @@ FROM scratch AS ctx
 COPY build_files /
 
 # Base Image
-FROM ghcr.io/ublue-os/bazzite:stable
+FROM ghcr.io/ublue-os/base-main:latest
 
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:latest
@@ -24,7 +24,15 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build.sh && \
     ostree container commit
-    
+
+COPY --from=ghcr.io/ublue-os/akmods-nvidia:main-42 /rpms/ /tmp/rpms
+      RUN find /tmp/rpms
+      RUN rpm-ostree install /tmp/rpms/ublue-os/ublue-os-nvidia*.rpm
+      RUN sed -i '0,/enabled=0/{s/enabled=0/enabled=1/}' /etc/yum.repos.d/nvidia-container-toolkit.repo
+      RUN sed -i '0,/enabled=0/{s/enabled=0/enabled=1\npriority=90/}' /etc/yum.repos.d/negativo17-fedora-nvidia.repo   
+      RUN rpm-ostree install libnvidia-fbc libva-nvidia-driver nvidia-driver nvidia-driver-cuda nvidia-modprobe nvidia-persistenced nvidia-settings nvidia-container-toolkit 
+      RUN rpm-ostree install /tmp/rpms/kmods/kmod-nvidia*.rpm
+
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint
