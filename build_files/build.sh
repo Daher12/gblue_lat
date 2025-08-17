@@ -4,8 +4,13 @@ set -ouex pipefail
 
 ### Install packages
 
+## Hyprland
 #dnf5 install -y blueman nautilus xdg-user-dirs-gtk xdg-user-dirs file-roller kitty gnome-text-editor blueman-nautilus tlp zsh zsh-syntax-highlighting brightnessctl ffmpegthumbnailer loupe tuigreet greetd --setopt=install_weak_deps=False 
+
+## Gnome
 dnf5 install -y --setopt=install_weak_deps=False gnome-shell ffmpegthumbnailer gnome-extensions-app nautilus xdg-user-dirs xdg-user-dirs-gtk loupe file-roller gnome-text-editor zsh zsh-syntax-highlighting
+dnf5 remove -y tuned tuned-ppd
+dnf5 install -y tlp
 
 ## Hyprland
 #dnf5 -y copr enable solopasha/hyprland 
