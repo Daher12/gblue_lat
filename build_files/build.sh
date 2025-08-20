@@ -1,57 +1,54 @@
-#!/bin/bash
+##!/bin/bash
 
 set -ouex pipefail
 
 ### Install packages
 
-## Hyprland
-#dnf5 install -y blueman nautilus xdg-user-dirs-gtk xdg-user-dirs file-roller kitty gnome-text-editor blueman-nautilus tlp zsh zsh-syntax-highlighting brightnessctl ffmpegthumbnailer loupe tuigreet greetd --setopt=install_weak_deps=False 
-
-## Gnome
-dnf5 install -y --setopt=install_weak_deps=False gnome-shell ffmpegthumbnailer gnome-extensions-app nautilus xdg-user-dirs xdg-user-dirs-gtk loupe file-roller gnome-text-editor zsh zsh-syntax-highlighting
+## environment
+dnf5 install -y  dbus-tools dbus-daemon xdg-user-dirs gnome-shell gnome-tweaks zsh --setopt=install_weak_deps=False 
 dnf5 remove -y tuned tuned-ppd
 dnf5 install -y tlp
 
-## Hyprland
-#dnf5 -y copr enable solopasha/hyprland 
-#dnf5 -y install hyprland hyprpaper hypridle hyprlock hyprpolkitagent hyprshot waybar-git  --setopt=install_weak_deps=False
-#dnf5 -y copr disable solopasha/hyprland 
+# networking
+dnf5 install -y blueman bluez-tools iwd --setopt=install_weak_deps=False
 
-#dnf5 -y copr enable ublue-os/staging
-#dnf5 -y install supergfxctl 
-#dnf5 -y copr disable ublue-os/staging
+## other
 
-## NWG-Look
+dnf5 install -y nautilus gvfs-nfs 
+
+## Enable Ublue copr
+dnf5 -y copr enable ublue-os/akmods 
+
 dnf5 -y copr enable tofik/nwg-shell 
-dnf5 -y install nwg-look
+dnf5 -y install nwg-look --setopt=install_weak_deps=False
 dnf5 -y copr disable tofik/nwg-shell 
 
-## SBCTL
 dnf5 -y copr enable chenxiaolong/sbctl 
 dnf5 -y install sbctl
 dnf5 -y copr disable chenxiaolong/sbctl 
 
-## Ghostty
 dnf5 -y copr enable scottames/ghostty
 dnf5 -y install ghostty
 dnf5 -y copr disable scottames/ghostty
 
 ## Tailscale
 dnf5 -y config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
-dnf5 -y config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/shells:zsh-users:zsh-autosuggestions/Fedora_Rawhide/shells:zsh-users:zsh-autosuggestions.repo
-dnf5 -y install tailscale zsh-autosuggestions clapper
+#dnf5 -y config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/shells:zsh-users:zsh-autosuggestions/Fedora_Rawhide/shells:zsh-users:zsh-autosuggestions.repo
+#dnf5 -y install zsh-autosuggestions zsh-syntax-highlighting
+dnf5 -y install tailscale 
 
 rm /etc/yum.repos.d/tailscale.repo
-rm /etc/yum.repos.d/shells:zsh-users:zsh-autosuggestions.repo
+#rm /etc/yum.repos.d/shells:zsh-users:zsh-autosuggestions.repo
 
+dnf5 -y copr disable ublue-os/akmods
 
 ## Nix
 mkdir -p /nix && \
 	curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
 	chmod a+rx /nix/determinate-nix-installer.sh
 
+ curl -L https://github.com/curlpipe/ox/releases/latest/download/ox -o /usr/bin/ox && \
+ chmod +x /usr/bin/ox
+
 systemctl enable tlp
 systemctl enable tailscaled
-#systemctl enable supergfxd
-#systemctl enable greetd
-
