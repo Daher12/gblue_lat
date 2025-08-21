@@ -1,11 +1,11 @@
-##!/bin/bash
+#!/bin/bash
 
 set -ouex pipefail
 
 ### Install packages
 
 ## environment
-dnf5 install -y  dbus-tools dbus-daemon xdg-user-dirs gnome-shell gnome-tweaks zsh --setopt=install_weak_deps=False 
+dnf5 install -y xdg-user-dirs gnome-shell gnome-tweaks zsh --setopt=install_weak_deps=False 
 dnf5 remove -y tuned tuned-ppd
 dnf5 install -y tlp
 
@@ -13,11 +13,15 @@ dnf5 install -y tlp
 dnf5 install -y blueman bluez-tools iwd --setopt=install_weak_deps=False
 
 ## other
-
-dnf5 install -y nautilus gvfs-nfs 
+dnf5 install -y nautilus gvfs-nfs --setopt=install_weak_deps=False 
 
 ## Enable Ublue copr
 dnf5 -y copr enable ublue-os/akmods 
+
+## Hyprland
+dnf5 -y copr enable solopasha/hyprland 
+dnf5 -y install hyprland hyprpaper hypridle hyprlock hyprpolkitagent hyprshot uwsm newt --setopt=install_weak_deps=False
+dnf5 -y copr disable solopasha/hyprland 
 
 dnf5 -y copr enable tofik/nwg-shell 
 dnf5 -y install nwg-look --setopt=install_weak_deps=False
@@ -27,18 +31,14 @@ dnf5 -y copr enable chenxiaolong/sbctl
 dnf5 -y install sbctl
 dnf5 -y copr disable chenxiaolong/sbctl 
 
-dnf5 -y copr enable scottames/ghostty
-dnf5 -y install ghostty
-dnf5 -y copr disable scottames/ghostty
 
 ## Tailscale
 dnf5 -y config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
-#dnf5 -y config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/shells:zsh-users:zsh-autosuggestions/Fedora_Rawhide/shells:zsh-users:zsh-autosuggestions.repo
-#dnf5 -y install zsh-autosuggestions zsh-syntax-highlighting
-dnf5 -y install tailscale 
+dnf5 -y config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/shells:zsh-users:zsh-autosuggestions/Fedora_Rawhide/shells:zsh-users:zsh-autosuggestions.repo
+dnf5 -y install zsh-autosuggestions zsh-syntax-highlighting tailscale
 
 rm /etc/yum.repos.d/tailscale.repo
-#rm /etc/yum.repos.d/shells:zsh-users:zsh-autosuggestions.repo
+rm /etc/yum.repos.d/shells:zsh-users:zsh-autosuggestions.repo
 
 dnf5 -y copr disable ublue-os/akmods
 
@@ -47,8 +47,12 @@ mkdir -p /nix && \
 	curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix -o /nix/determinate-nix-installer.sh && \
 	chmod a+rx /nix/determinate-nix-installer.sh
 
- curl -L https://github.com/curlpipe/ox/releases/latest/download/ox -o /usr/bin/ox && \
- chmod +x /usr/bin/ox
+## Ox
+curl -L https://github.com/curlpipe/ox/releases/latest/download/ox -o /usr/bin/ox && \
+chmod +x /usr/bin/ox
 
+curl -L https://github.com/Daher12/dots/blob/main/iwd.conf -o /etc/NetworkManager/conf.d/iwd.conf
+
+systemctl disable wpa_supplicant
 systemctl enable tlp
 systemctl enable tailscaled
