@@ -18,11 +18,6 @@ dnf5 install -y nautilus gvfs-nfs --setopt=install_weak_deps=False
 ## Enable Ublue copr
 dnf5 -y copr enable ublue-os/akmods 
 
-## Hyprland
-dnf5 -y copr enable solopasha/hyprland 
-dnf5 -y install hyprland hyprpaper hypridle hyprlock hyprpolkitagent hyprshot uwsm newt --setopt=install_weak_deps=False
-dnf5 -y copr disable solopasha/hyprland 
-
 dnf5 -y copr enable tofik/nwg-shell 
 dnf5 -y install nwg-look --setopt=install_weak_deps=False
 dnf5 -y copr disable tofik/nwg-shell 
