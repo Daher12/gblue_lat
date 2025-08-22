@@ -5,7 +5,7 @@ set -ouex pipefail
 ### Install packages
 
 ## environment
-dnf5 install -y xdg-user-dirs gnome-shell gnome-tweaks zsh --setopt=install_weak_deps=False 
+dnf5 install -y xdg-user-dirs gnome-shell gnome-tweaks zsh util-linux-user --setopt=install_weak_deps=False 
 dnf5 remove -y tuned tuned-ppd
 dnf5 install -y tlp  --setopt=install_weak_deps=False 
 
