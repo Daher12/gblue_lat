@@ -5,7 +5,7 @@ set -ouex pipefail
 ### Install packages
 
 ## environment
-dnf5 install -y xdg-user-dirs gnome-shell gnome-tweaks zsh util-linux-user --setopt=install_weak_deps=False 
+dnf5 install -y xdg-user-dirs gnome-shell gnome-tweaks zsh --setopt=install_weak_deps=False 
 dnf5 remove -y tuned tuned-ppd
 dnf5 install -y tlp  --setopt=install_weak_deps=False 
 
@@ -22,6 +22,9 @@ dnf5 -y copr enable chenxiaolong/sbctl
 dnf5 -y install sbctl
 dnf5 -y copr disable chenxiaolong/sbctl 
 
+dnf5 -y copr enable enable monkeygold/nautilus-open-any-terminal
+dnf5 -y install nautilus-open-any-terminal
+dnf5 -y copr disable monkeygold/nautilus-open-any-terminal
 
 ## Tailscale
 dnf5 -y config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
