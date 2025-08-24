@@ -17,7 +17,7 @@ dnf5 install -y libappstream-glib ghostty fish nautilus gvfs-nfs nwg-look sbctl 
 #dnf5 -y copr disable tofik/nwg-shell 
 #dnf5 -y copr disable chenxiaolong/sbctl 
 #dnf5 -y copr disable monkeygold/nautilus-open-any-terminal
-rm /etc/yum.repos.d/tailscale.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:chenxiaolong:sbctl.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:monkeygold:nautilus-open-any-terminal.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:tofik:nwg-shell.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:ublue-os:akmods.repo
+rm /etc/yum.repos.d/tailscale.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:chenxiaolong:sbctl.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:tofik:nwg-shell.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:ublue-os:akmods.repo
 
 
 #dnf5 -y copr disable ublue-os/akmods
