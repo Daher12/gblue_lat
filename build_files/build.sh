@@ -10,7 +10,7 @@ dnf5 -y copr enable tofik/nwg-shell
 dnf5 -y copr enable chenxiaolong/sbctl
 dnf5 -y config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 
-dnf5 install -y libappstream-glib ghostty fish nautilus gvfs-nfs nwg-look sbctlt ailscale gnome-shell gnome-tweaks tlp --setopt=install_weak_deps=False
+dnf5 install -y libappstream-glib ghostty fish nautilus gvfs-nfs nwg-look sbctl tailscale gnome-shell gnome-tweaks tlp --setopt=install_weak_deps=False
 
 #ls /etc/yum.repos.d/
 #dnf5 -y copr disable solopasha/hyprland 
