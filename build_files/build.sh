@@ -6,21 +6,13 @@ set -ouex pipefail
 
 dnf5 -y copr enable ublue-os/akmods 
 dnf5 -y copr enable scottames/ghostty
-dnf5 -y copr enable tofik/nwg-shell 
 dnf5 -y copr enable chenxiaolong/sbctl
 dnf5 -y config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 
-dnf5 install -y libappstream-glib ghostty fish nautilus nwg-look sbctl tailscale gnome-shell gnome-tweaks tlp --setopt=install_weak_deps=False
+dnf5 install -y libappstream-glib ghostty fish nautilus sbctl tailscale gnome-shell gnome-tweaks tlp --setopt=install_weak_deps=False
 
-#ls /etc/yum.repos.d/
-#dnf5 -y copr disable solopasha/hyprland 
-#dnf5 -y copr disable tofik/nwg-shell 
-#dnf5 -y copr disable chenxiaolong/sbctl 
-#dnf5 -y copr disable monkeygold/nautilus-open-any-terminal
 rm /etc/yum.repos.d/tailscale.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:chenxiaolong:sbctl.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:tofik:nwg-shell.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:ublue-os:akmods.repo
 
-
-#dnf5 -y copr disable ublue-os/akmods
 
 ## Nix
 mkdir -p /nix 
@@ -29,13 +21,6 @@ mkdir -p /nix
 curl -L https://github.com/curlpipe/ox/releases/latest/download/ox -o /usr/bin/ox && \
 chmod +x /usr/bin/ox
 
-## Impala
-#curl -L https://github.com/pythops/impala/releases/latest/download/impala-x86_64-unknown-linux-gnu  -o /usr/bin/impala && \
-#chmod +x /usr/bin/impala
-
-#curl -L https://raw.githubusercontent.com/Daher12/dots/refs/heads/main/iwd.conf -o /etc/NetworkManager/conf.d/iwd.conf
-
-#systemctl disable wpa_supplicant
 systemctl enable tlp
 systemctl enable tailscaled
 
