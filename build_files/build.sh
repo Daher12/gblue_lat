@@ -11,7 +11,7 @@ dnf5 -y config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable
 
 dnf5 install -y libappstream-glib ghostty fish nautilus sbctl tailscale gnome-shell gnome-tweaks tlp --setopt=install_weak_deps=False
 
-rm /etc/yum.repos.d/tailscale.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:chenxiaolong:sbctl.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:tofik:nwg-shell.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:ublue-os:akmods.repo
+rm /etc/yum.repos.d/tailscale.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:chenxiaolong:sbctl.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:ublue-os:akmods.repo
 
 
 ## Nix
